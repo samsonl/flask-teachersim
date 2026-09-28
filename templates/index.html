@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hillcrest Academy ΓÇö Teacher Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="school">
+      <span class="crest" aria-hidden="true"></span>
+      <div>
+        <h1>Hillcrest Academy</h1>
+        <p id="today-line">Staff portal</p>
+      </div>
+    </div>
+    <ol class="ribbon" id="ribbon" aria-label="Term calendar"></ol>
+  </header>
+
+  <div class="layout">
+    <aside class="planner" id="sidebar" aria-label="Your status"></aside>
+
+    <main>
+      <nav class="tabs" role="tablist" id="tabs">
+        <button role="tab" data-tab="today" aria-selected="true">Today</button>
+        <button role="tab" data-tab="classes">Classes</button>
+        <button role="tab" data-tab="timetable">Timetable</button>
+        <button role="tab" data-tab="work">Marking and admin</button>
+        <button role="tab" data-tab="grades">Gradebook</button>
+        <button role="tab" data-tab="staff">Staffroom</button>
+        <button role="tab" data-tab="report">Term report</button>
+      </nav>
+      <section id="view" tabindex="-1"></section>
+    </main>
+  </div>
+
+  <dialog id="modal"><div id="modal-body"></div></dialog>
+
+  <dialog id="newgame" class="newgame">
+    <form method="dialog" id="newgame-form">
+      <div class="ng-sprites" aria-hidden="true" id="ng-sprites"></div>
+      <h2>New term, new timetable</h2>
+      <p>You're a teacher at Hillcrest Academy. Twelve weeks, five classes, one subject, too much marking. Survive the term and get your students through their exams.</p>
+      <label>Your name
+        <input name="name" maxlength="30" placeholder="Ms. Sensei" autocomplete="off">
+      </label>
+      <label>Subject
+        <select name="subject">
+          {% for s in subjects %}<option>{{ s }}</option>{% endfor %}
+        </select>
+      </label>
+      <fieldset>
+        <legend>Difficulty</legend>
+        <label class="radio"><input type="radio" name="difficulty" value="relaxed"> Relaxed <small>fewer issues, lighter admin</small></label>
+        <label class="radio"><input type="radio" name="difficulty" value="standard" checked> Standard <small>a normal term</small></label>
+        <label class="radio"><input type="radio" name="difficulty" value="inspection"> Inspection year <small>everything, all at once</small></label>
+      </fieldset>
+      <div class="row-end">
+        <button type="button" class="ghost" id="ng-cancel">Cancel</button>
+        <button class="primary" value="start">Start the term</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
